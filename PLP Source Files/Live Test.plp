@@ -1,0 +1,202 @@
+NeoTest
+integer int1,
+integer int2,
+boolean bool1,
+boolean bool2,
+file file1,
+file file2,
+file outputFile1,
+url url1,
+url url2
+{	
+	integer int3
+	integer int4
+	integer int5
+	integer int6
+	boolean bool3
+	boolean bool4
+	image image1
+	image image2
+	image image3
+	image image4
+	image image5
+	frame frame1
+	frame frame2
+	frame frame3
+	frame frame4
+	frame frame5
+	
+	/*
+	file1 -> image1 -> frame1 -> show;
+	sleep 500;
+	file2 -> image2 -> frame2 -> show;
+	sleep 500;
+	url1 -> image1 -> frame3 -> show;
+	sleep 500;
+	image1 -> blur -> frame4 -> show;
+	*/
+
+	int3 <- screenwidth;
+	int4 <- screenheight;
+	
+	url1 -> image2;
+	url2 -> image3;
+	image1 <- image2 + image3;
+
+	image2 -> frame1;
+	frame1 -> move(200, 50);
+	frame1 -> show;
+	sleep 500;
+	image3 -> frame2 -> move(300, 100) -> show;
+	sleep 500;
+	image1 -> frame3 -> move(400, 150) -> show;
+	sleep 500;
+	int3 <- int1 + 50;
+	int4 <- int2 + 50;
+	frame3 -> move(int3, int4);
+	sleep 500;
+	frame3 -> hide;
+	
+	image3 -> image4;
+	image5 <- image3;
+	image3 -> blur -> blur -> blur;
+	image4 -> frame4;
+	frame4 -> xloc -> int5;
+	frame4 -> yloc -> int6;
+	frame4 -> show;
+	image5 -> frame5 -> show;
+	
+	
+
+	if (image3 == image4) {
+		image i3scale
+		image3 -> scale(2) -> i3scale -> frame3 -> show;
+		sleep 500;
+		frame3 -> hide;
+		image itemp
+		url1 -> itemp;
+		itemp <- itemp + image3;
+		itemp -> outputFile1;
+		integer w
+		integer h
+		image4 -> width -> w;
+		image4 -> height -> h;
+		w <- w;
+		h <- h;
+		integer w2
+		integer h2
+		i3scale -> width -> w2;
+		i3scale -> height -> h2;
+		w2 <- w2;
+		h2 <- h2;
+		
+	}
+
+	file1 -> image1 -> gray -> frame1 -> show;
+	file2 -> image2 -> convolve -> frame2 -> show;
+	url1 -> image1;
+	image1 <- image1 % 150;
+	image1 -> frame5 -> show;
+
+	
+	
+	if (true) {
+		integer x
+		integer y
+		integer xi
+		integer yi
+		xi <- 100;
+		yi <- 50;
+		x <- xi;
+		y <- yi;
+		file1 -> image1;
+		file2 -> image2;
+		url1 -> image3;
+		url2 -> image4;
+		int3 <- 15;
+		image itemp
+		itemp <- image1;
+		while (int3 > 0) {
+			frame ftemp
+			
+			if (int3 % 5 == 0) {
+				itemp <- itemp + image2;
+			}
+			if (int3 % 5 == 1) {
+				itemp <- itemp - image2;
+			}
+			if (int3 % 5 == 2) {
+				itemp <- itemp + image4;
+			}
+			if (int3 % 5 == 3) {
+				itemp <- itemp - image4;
+			}
+			if (int3 % 5 == 4) {
+				itemp <- image1;
+			}
+
+			itemp -> ftemp -> move(x, y) -> show;
+			sleep 300;
+			ftemp -> hide;
+
+
+			x <- x + 100;
+			if (x > 500) {
+				x <- xi;
+			}
+			y <- y + 50;
+			if (y > 300) {
+				y <- yi;
+			}
+			int3 <- int3 - 1;
+		}
+	}
+
+	
+	
+	
+	file1 -> image1 -> frame1;
+	file2 -> image2 -> frame2;
+	url1 -> image3 -> frame3;
+	url2 -> image4 -> frame4;
+	
+
+	integer x
+	x <- 230;
+	integer y
+	y <- 170;
+	
+	integer loop
+	loop <- 20;
+	while (loop > 0) {
+		if (loop % 4 == 0) {
+			image1 -> frame1 -> move(x, y) -> show;
+			image1 <- image1 - image3;
+
+			}
+		if (loop % 4 == 1) {
+			image2 -> frame2 -> move(x, y) -> show;
+			image2 <- image2 + image4;
+
+		}
+		if (loop % 4 == 2) {
+			image3 -> frame3 -> move(x, y) -> show;
+			image3 <- image1 * 3;
+			file1 -> image1;
+		}
+		if (loop % 4 == 3) {
+			image4 -> frame4 -> move(x, y) -> show;
+			image4 <- image2 / 2;
+			file2 -> image2;
+		}
+		sleep (x);
+		x <- x * 17 % 1100;
+		y <- y * 31 % 370;
+		loop <- loop - 1;
+	}
+	
+
+	
+}
+
+

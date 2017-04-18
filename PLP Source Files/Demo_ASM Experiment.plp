@@ -1,0 +1,56 @@
+Demo
+integer int1,
+integer int2,
+boolean bool1,
+boolean bool2,
+file file1,
+file file2,
+url url1,
+url url2
+{
+	integer int3
+	integer int4
+	boolean bool3
+	boolean bool4
+	image image1
+	image image2
+	image image3
+	image image4
+	frame frame1
+	frame frame2
+	
+	int3 <- int1;
+	
+	file1 -> image1;
+	file2 -> image2;
+	url1 -> image3;
+	url2 -> image4;
+	image1 -> frame1;
+
+	frame1 -> move(10, 20) -> show;
+	frame1 -> xloc -> int1;
+	
+	image1 -> image3;	/*copy reference*/
+	image4 <- image1;	/*copy value*/
+
+	image1 -> width -> int1;
+	image1 -> blur;		/*highly unsure*/
+	
+	image1 -> scale(3) -> image2;
+	image1 -> file1;
+	
+	image1 <- image2 + image3;
+	image1 <- image1 % 3;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+
+

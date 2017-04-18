@@ -1,0 +1,44 @@
+NeoTest
+integer int1,
+integer int2,
+boolean bool1,
+boolean bool2
+{
+	integer int3
+	integer int4
+	boolean bool3
+	boolean bool4
+	
+	int3 <- (1 + int1) * 2;
+	int4 <- int1 + int2;
+	bool1 <- int1 < int2;
+	bool3 <- bool1 & (bool2 == true);
+	bool4 <- (int1 > 0) & (int2 > 20) & (bool1 | bool3);
+	
+	
+	if((int1 > 5) | (int2 > 10)) {
+		integer int101
+		boolean bool101
+		
+		int101 <- int1;
+		bool101 <- bool3 == true;
+
+		if (int2 > 0) {
+			integer int111
+			
+			int111 <- (int1 - int2) * 5 + int3 + int4 / 2;
+		}
+
+	}
+	
+	int1 <- 0;
+
+	while (int1 < 30) {
+		integer int201
+		
+		int201 <- 32;
+		int1 <- int1 + 10;
+	}
+	
+	
+}
