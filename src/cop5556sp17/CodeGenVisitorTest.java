@@ -27,22 +27,12 @@ public class CodeGenVisitorTest {
 	public void emptyProg() throws Exception {
 		// scan, parse, and type check the program
 
-		/*
-		 * String progname = "LQTest"; String input = progname +
-		 * " integer int1,integer int2,boolean bool1,boolean bool2,file file1,file file2,file outputFile1,url url1,url url2{\n"
-		 * + "integer int3\n" + "integer int4\n" + "integer int5\n" +
-		 * "integer int6\n" + "boolean bool3\n" + "boolean bool4\n" +
-		 * "image image1\n" + "image image2\n" + "image image3\n" +
-		 * "image image4\n" + "image image5\n" + "frame frame1\n" +
-		 * "frame frame2\n" + "frame frame3\n" + "frame frame4\n" +
-		 * "frame frame5\n"
-		 * +"file1->image3->image4;\n"+"if(image3 == image4){}\n"+"}\n";
-		 */
+		String progname = "LQTest";
+		String input = progname
+				+ " integer int1,integer int2,boolean bool1,boolean bool2,file file1,"
+				+ "file file2,file outputFile1,url url1,url url2{\n"
 
-		String input = "subImage url u {image i image j image k frame f \n"
-				+ "u -> i; \n"
-				+ "u -> j; \n "
-				+ "k <- i-j; k -> f -> show;\n}";
+				+ "}\n";
 
 		Scanner scanner = new Scanner(input);
 		scanner.scan();
@@ -71,7 +61,7 @@ public class CodeGenVisitorTest {
 		// directly execute bytecode
 		String[] args = new String[9]; // create command line argument array to
 										// initialize params, none in this case
-		/*args[0] = "50";
+		args[0] = "50";
 		args[1] = "100";
 		args[2] = "true";
 		args[3] = "false";
@@ -79,11 +69,11 @@ public class CodeGenVisitorTest {
 		args[5] = "Images/image2.jpg";
 		args[6] = "Images/output1.jpg";
 		args[7] = "https://s3.amazonaws.com/glocal-files/image/bi+(65).jpg";
-		args[8] = "https://s3.amazonaws.com/glocal-files/image/bi+(100).jpg";*/
-		
-		args[0] = "https://s3.amazonaws.com/glocal-files/image/bi+(65).jpg";
-		//args[1] = "false";
-		
+		args[8] = "https://s3.amazonaws.com/glocal-files/image/bi+(100).jpg";
+
+		// args[0] = "https://s3.amazonaws.com/glocal-files/image/bi+(65).jpg";
+		// args[1] = "false";
+
 		Runnable instance = CodeGenUtils.getInstance(name, bytecode, args);
 		instance.run();
 	}

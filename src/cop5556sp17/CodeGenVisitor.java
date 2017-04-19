@@ -812,6 +812,7 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 							identChain.getDec().getTypeName().getJVMTypeDesc());
 					mv.visitMethodInsn(INVOKESTATIC, PLPRuntimeImageIO.className, "write",
 							PLPRuntimeImageIO.writeImageDesc, false);
+					mv.visitInsn(POP);
 					identChain.getDec().setInitialized(true);
 					// mv.visitInsn(POP);
 

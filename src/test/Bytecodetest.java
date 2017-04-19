@@ -14,24 +14,18 @@ public class Bytecodetest {
 
 	// int a;
 	// boolean t;
-
-	boolean b0;
-	boolean b1;
+	File f;
+	File out;
 
 	public Bytecodetest(String[] args) {
 		// a = Integer.parseInt(args[0]);
 		// t = Boolean.parseBoolean(args[1]);
 
 		// f = new File(args[1]);
-		// f = new File("test.jpg");
-		b0 = false;
-		b1 = true;
+		f = new File("test.jpg");
+		out = new File("output.jpg");
 
 		// url = PLPRuntimeImageIO.getURL(args, 1);
-		/*
-		 * try { url = new URL(args[3]); } catch (MalformedURLException e) { //
-		 * TODO Auto-generated catch block // e.printStackTrace(); }
-		 */
 
 	}
 
@@ -41,12 +35,13 @@ public class Bytecodetest {
 	}
 
 	public void run() {
-		boolean b3;
-		boolean b4;
-		b3 = b0 && b1;
-		b4 = b0 || b1;
-		// BufferedImage p;
-		// p = PLPRuntimeImageIO.readFromFile(f);
+		BufferedImage p;
+		BufferedImage p1;
+		p = PLPRuntimeImageIO.readFromFile(f);
+		p1 = p;
+		if (p == p1) {
+			PLPRuntimeImageIO.write(p, out);
+		}
 
 		// BufferedImage p1 = PLPRuntimeFilterOps.convolveOp(p, null);
 		// PLPRuntimeFrame fr1;
