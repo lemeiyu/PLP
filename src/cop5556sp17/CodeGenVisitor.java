@@ -214,11 +214,10 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 				/*
 				 * Debug
 				 */
-				/*
-				 * System.out.println( "INVOKESTATIC " +
-				 * PLPRuntimeImageIO.className + " readFromURL " +
-				 * PLPRuntimeImageIO.readFromURLSig);
-				 */
+
+				System.out.println("INVOKESTATIC " + PLPRuntimeImageIO.className + " readFromURL "
+						+ PLPRuntimeImageIO.readFromURLSig);
+
 			} else if (binaryChain.getE0().getTypeName() == FILE) {
 				mv.visitMethodInsn(INVOKESTATIC, PLPRuntimeImageIO.className, "readFromFile",
 						PLPRuntimeImageIO.readFromFileDesc, false);
@@ -226,11 +225,9 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 				/*
 				 * Debug
 				 */
-				/*
-				 * System.out.println("INVOKESTATIC " +
-				 * PLPRuntimeImageIO.className + " readFromFile " +
-				 * PLPRuntimeImageIO.readFromFileDesc);
-				 */
+
+				System.out.println("INVOKESTATIC " + PLPRuntimeImageIO.className + " readFromFile "
+						+ PLPRuntimeImageIO.readFromFileDesc);
 
 			}
 		}
@@ -242,33 +239,34 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 		}
 		if (binaryChain.getE1() instanceof IdentChain) {
 			IdentChain identChain = (IdentChain) binaryChain.getE1();
-			if (identChain.getDec() instanceof ParamDec) {
-				mv.visitVarInsn(ALOAD, 0);
-				mv.visitFieldInsn(GETFIELD, className, identChain.getDec().getIdent().getText(),
-						identChain.getDec().getTypeName().getJVMTypeDesc());
+			if ((identChain.getDec() instanceof ParamDec)) {
+				if (identChain.getDec().getTypeName() == TypeName.INTEGER) {
+					mv.visitVarInsn(ALOAD, 0);
+					mv.visitFieldInsn(GETFIELD, className, identChain.getDec().getIdent().getText(),
+							identChain.getDec().getTypeName().getJVMTypeDesc());
+				}
 
 				/*
 				 * Debug
 				 */
-				/*
-				 * System.out.println("ALOAD 0"); System.out.println("GETFIELD "
-				 * + className + identChain.getDec().getIdent().getText() +
-				 * identChain.getDec().getTypeName().getJVMTypeDesc());
-				 */
+
+				System.out.println("ALOAD 0");
+				System.out.println("GETFIELD " + className + identChain.getDec().getIdent().getText()
+						+ identChain.getDec().getTypeName().getJVMTypeDesc());
+
 			} else {
-				if (identChain.getDec().getTypeName()==TypeName.INTEGER) {
+				if (identChain.getDec().getTypeName() == TypeName.INTEGER) {
 					mv.visitVarInsn(ILOAD, identChain.getDec().getSlotNum());
 				} else {
 					mv.visitVarInsn(ALOAD, identChain.getDec().getSlotNum());
 				}
-				
+
 				/*
 				 * Debug
 				 */
-				/*
-				 * System.out.println("ALOAD " +
-				 * identChain.getDec().getSlotNum());
-				 */
+
+				System.out.println("ALOAD " + identChain.getDec().getSlotNum());
+
 			}
 		}
 
@@ -291,7 +289,7 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 				/*
 				 * Debug
 				 */
-				/* System.out.println("IADD"); */
+				System.out.println("IADD");
 
 			} else {
 				mv.visitMethodInsn(INVOKESTATIC, PLPRuntimeImageOps.JVMName, "add", PLPRuntimeImageOps.addSig, false);
@@ -299,11 +297,8 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 				/*
 				 * Debug
 				 */
-				/*
-				 * System.out.println("INVOKESTATIC " +
-				 * PLPRuntimeImageOps.JVMName + " add " +
-				 * PLPRuntimeImageOps.addSig);
-				 */
+
+				System.out.println("INVOKESTATIC " + PLPRuntimeImageOps.JVMName + " add " + PLPRuntimeImageOps.addSig);
 
 			}
 			break;
@@ -316,17 +311,14 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 				/*
 				 * Debug
 				 */
-				/* System.out.println("ISUB"); */
+				System.out.println("ISUB");
 			} else {
 				mv.visitMethodInsn(INVOKESTATIC, PLPRuntimeImageOps.JVMName, "sub", PLPRuntimeImageOps.subSig, false);
 				/*
 				 * Debug
 				 */
-				/*
-				 * System.out.println("INVOKESTATIC " +
-				 * PLPRuntimeImageOps.JVMName + " sub " +
-				 * PLPRuntimeImageOps.subSig);
-				 */
+
+				System.out.println("INVOKESTATIC " + PLPRuntimeImageOps.JVMName + " sub " + PLPRuntimeImageOps.subSig);
 
 			}
 			break;
@@ -339,7 +331,7 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 				/*
 				 * Debug
 				 */
-				/* System.out.println("IMUL"); */
+				System.out.println("IMUL");
 
 			} else if ((t0 == TypeName.INTEGER) && (t1 == TypeName.IMAGE)) {
 				mv.visitInsn(SWAP);
@@ -347,23 +339,17 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 				/*
 				 * Debug
 				 */
-				/*
-				 * System.out.println("SWAP");
-				 * System.out.println("INVOKESTATIC " +
-				 * PLPRuntimeImageOps.JVMName + " mul " +
-				 * PLPRuntimeImageOps.mulSig);
-				 */
+
+				System.out.println("SWAP");
+				System.out.println("INVOKESTATIC " + PLPRuntimeImageOps.JVMName + " mul " + PLPRuntimeImageOps.mulSig);
 
 			} else {
 				mv.visitMethodInsn(INVOKESTATIC, PLPRuntimeImageOps.JVMName, "mul", PLPRuntimeImageOps.mulSig, false);
 				/*
 				 * Debug
 				 */
-				/*
-				 * System.out.println("INVOKESTATIC " +
-				 * PLPRuntimeImageOps.JVMName + " mul " +
-				 * PLPRuntimeImageOps.mulSig);
-				 */
+
+				System.out.println("INVOKESTATIC " + PLPRuntimeImageOps.JVMName + " mul " + PLPRuntimeImageOps.mulSig);
 
 			}
 			break;
@@ -376,17 +362,14 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 				/*
 				 * Debug
 				 */
-				/* System.out.println("IDIV"); */
+				System.out.println("IDIV");
 			} else {
 				mv.visitMethodInsn(INVOKESTATIC, PLPRuntimeImageOps.JVMName, "div", PLPRuntimeImageOps.divSig, false);
 				/*
 				 * Debug
 				 */
-				/*
-				 * System.out.println("INVOKESTATIC " +
-				 * PLPRuntimeImageOps.JVMName + " div " +
-				 * PLPRuntimeImageOps.divSig);
-				 */
+
+				System.out.println("INVOKESTATIC " + PLPRuntimeImageOps.JVMName + " div " + PLPRuntimeImageOps.divSig);
 
 			}
 			break;
@@ -399,17 +382,14 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 				/*
 				 * Debug
 				 */
-				/* System.out.println("IREM"); */
+				System.out.println("IREM");
 			} else {
 				mv.visitMethodInsn(INVOKESTATIC, PLPRuntimeImageOps.JVMName, "mod", PLPRuntimeImageOps.modSig, false);
 				/*
 				 * Debug
 				 */
-				/*
-				 * System.out.println("INVOKESTATIC " +
-				 * PLPRuntimeImageOps.JVMName + " mod " +
-				 * PLPRuntimeImageOps.modSig);
-				 */
+
+				System.out.println("INVOKESTATIC " + PLPRuntimeImageOps.JVMName + " mod " + PLPRuntimeImageOps.modSig);
 
 			}
 			break;
@@ -568,6 +548,8 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			statement.visit(this, mv);
 			if (statement instanceof BinaryChain) {
 				mv.visitInsn(POP);
+				// Debug
+				System.out.println("POP");
 			}
 		}
 		// symbolTable.leaveScope();
@@ -630,11 +612,9 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			/*
 			 * Debug
 			 */
-			/*
-			 * System.out.println("ACONST_NULL");
-			 * System.out.println("INVOKESTATIC " + PLPRuntimeFilterOps.JVMName
-			 * + " blurOp " + PLPRuntimeFilterOps.opSig);
-			 */
+
+			System.out.println("ACONST_NULL");
+			System.out.println("INVOKESTATIC " + PLPRuntimeFilterOps.JVMName + " blurOp " + PLPRuntimeFilterOps.opSig);
 
 			break;
 
@@ -646,11 +626,9 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			/*
 			 * Debug
 			 */
-			/*
-			 * System.out.println("ACONST_NULL");
-			 * System.out.println("INVOKESTATIC " + PLPRuntimeFilterOps.JVMName
-			 * + " blurOp " + PLPRuntimeFilterOps.opSig);
-			 */
+
+			System.out.println("ACONST_NULL");
+			System.out.println("INVOKESTATIC " + PLPRuntimeFilterOps.JVMName + " grayOp " + PLPRuntimeFilterOps.opSig);
 
 			break;
 
@@ -661,11 +639,10 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			/*
 			 * Debug
 			 */
-			/*
-			 * System.out.println("ACONST_NULL");
-			 * System.out.println("INVOKESTATIC " + PLPRuntimeFilterOps.JVMName
-			 * + " blurOp " + PLPRuntimeFilterOps.opSig);
-			 */
+
+			System.out.println("ACONST_NULL");
+			System.out.println(
+					"INVOKESTATIC " + PLPRuntimeFilterOps.JVMName + " convolveOp " + PLPRuntimeFilterOps.opSig);
 
 			break;
 
@@ -693,11 +670,9 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			 * Debug
 			 */
 			// System.out.println("ACONST_NULL");
-			/*
-			 * System.out.println( "INVOKEVIRTUAL " +
-			 * PLPRuntimeFrame.JVMClassName + " showImage " +
-			 * PLPRuntimeFrame.showImageDesc);
-			 */
+
+			System.out.println(
+					"INVOKEVIRTUAL " + PLPRuntimeFrame.JVMClassName + " showImage " + PLPRuntimeFrame.showImageDesc);
 
 			break;
 
@@ -715,11 +690,9 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			 * Debug
 			 */
 			// System.out.println("ACONST_NULL");
-			/*
-			 * System.out.println( "INVOKEVIRTUAL " +
-			 * PLPRuntimeFrame.JVMClassName + " hideImage " +
-			 * PLPRuntimeFrame.hideImageDesc);
-			 */
+
+			System.out.println(
+					"INVOKEVIRTUAL " + PLPRuntimeFrame.JVMClassName + " hideImage " + PLPRuntimeFrame.hideImageDesc);
 
 			break;
 
@@ -732,11 +705,9 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			 * Debug
 			 */
 			// System.out.println("ACONST_NULL");
-			/*
-			 * System.out.println( "INVOKEVIRTUAL " +
-			 * PLPRuntimeFrame.JVMClassName + " moveFrame " +
-			 * PLPRuntimeFrame.moveFrameDesc);
-			 */
+
+			System.out.println(
+					"INVOKEVIRTUAL " + PLPRuntimeFrame.JVMClassName + " moveFrame " + PLPRuntimeFrame.moveFrameDesc);
 
 			break;
 
@@ -748,11 +719,9 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			 * Debug
 			 */
 			// System.out.println("ACONST_NULL");
-			/*
-			 * System.out.println( "INVOKEVIRTUAL " +
-			 * PLPRuntimeFrame.JVMClassName + " getXVal " +
-			 * PLPRuntimeFrame.getXValDesc);
-			 */
+
+			System.out.println(
+					"INVOKEVIRTUAL " + PLPRuntimeFrame.JVMClassName + " getXVal " + PLPRuntimeFrame.getXValDesc);
 
 			break;
 
@@ -763,11 +732,9 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			 * Debug
 			 */
 			// System.out.println("ACONST_NULL");
-			/*
-			 * System.out.println( "INVOKEVIRTUAL " +
-			 * PLPRuntimeFrame.JVMClassName + " getYVal " +
-			 * PLPRuntimeFrame.getYValDesc);
-			 */
+
+			System.out.println(
+					"INVOKEVIRTUAL " + PLPRuntimeFrame.JVMClassName + " getYVal " + PLPRuntimeFrame.getYValDesc);
 
 			break;
 
@@ -796,13 +763,11 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 					/*
 					 * Debug
 					 */
-					/*
-					 * System.out.println("ALOAD 0");
-					 * System.out.println("SWAP");
-					 * System.out.println("PUTFIELD " + className +
-					 * identChain.getDec().getIdent().getText() +
-					 * identChain.getDec().getTypeName().getJVMTypeDesc());
-					 */
+
+					System.out.println("ALOAD 0");
+					System.out.println("SWAP");
+					System.out.println("PUTFIELD " + className + identChain.getDec().getIdent().getText()
+							+ identChain.getDec().getTypeName().getJVMTypeDesc());
 
 					break;
 
@@ -812,22 +777,19 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 							identChain.getDec().getTypeName().getJVMTypeDesc());
 					mv.visitMethodInsn(INVOKESTATIC, PLPRuntimeImageIO.className, "write",
 							PLPRuntimeImageIO.writeImageDesc, false);
-					mv.visitInsn(POP);
 					identChain.getDec().setInitialized(true);
 					// mv.visitInsn(POP);
 
 					/*
 					 * Debug
 					 */
-					/*
-					 * System.out.println("ALOAD 0");
-					 * System.out.println("GETFIELD " + className +
-					 * identChain.getDec().getIdent().getText() +
-					 * identChain.getDec().getTypeName().getJVMTypeDesc());
-					 * System.out.println( "INVOKESTATIC " +
-					 * PLPRuntimeImageIO.className + "write" +
-					 * PLPRuntimeImageIO.writeImageDesc);
-					 */
+
+					System.out.println("ALOAD 0");
+					System.out.println("GETFIELD " + className + identChain.getDec().getIdent().getText()
+							+ identChain.getDec().getTypeName().getJVMTypeDesc());
+					System.out.println(
+							"INVOKESTATIC " + PLPRuntimeImageIO.className + "write" + PLPRuntimeImageIO.writeImageDesc);
+
 					break;
 
 				default:
@@ -841,10 +803,9 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 					/*
 					 * Debug
 					 */
-					/*
-					 * System.out.println("ISTORE " +
-					 * identChain.getDec().getSlotNum());
-					 */
+
+					System.out.println("ISTORE " + identChain.getDec().getSlotNum());
+
 					break;
 
 				case IMAGE:
@@ -853,10 +814,9 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 					/*
 					 * Debug
 					 */
-					/*
-					 * System.out.println("ASTORE " +
-					 * identChain.getDec().getSlotNum());
-					 */
+
+					System.out.println("ASTORE " + identChain.getDec().getSlotNum());
+
 					break;
 
 				case FILE:
@@ -868,13 +828,10 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 					/*
 					 * Debug
 					 */
-					/*
-					 * System.out.println("ALOAD " +
-					 * identChain.getDec().getSlotNum());
-					 * System.out.println("INVOKESTATIC " +
-					 * PLPRuntimeImageIO.className + " write " +
-					 * PLPRuntimeImageIO.writeImageDesc);
-					 */
+
+					System.out.println("ALOAD " + identChain.getDec().getSlotNum());
+					System.out.println("INVOKESTATIC " + PLPRuntimeImageIO.className + " write "
+							+ PLPRuntimeImageIO.writeImageDesc);
 
 					break;
 
@@ -883,12 +840,24 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 						mv.visitVarInsn(ALOAD, identChain.getDec().getSlotNum());
 						mv.visitMethodInsn(INVOKESTATIC, PLPRuntimeFrame.JVMClassName, "createOrSetFrame",
 								PLPRuntimeFrame.createOrSetFrameSig, false);
+						mv.visitVarInsn(ASTORE, identChain.getDec().getSlotNum());
+
+						System.out.println("ALOAD " + identChain.getDec().getSlotNum());
+						System.out.println("INVOKESTATIC " + PLPRuntimeFrame.JVMClassName + " createOrSetFrame"
+								+ PLPRuntimeFrame.createOrSetFrameSig);
+						System.out.println("ASTORE "+identChain.getDec().getSlotNum());
 					} else {
 						mv.visitInsn(ACONST_NULL);
 						mv.visitMethodInsn(INVOKESTATIC, PLPRuntimeFrame.JVMClassName, "createOrSetFrame",
 								PLPRuntimeFrame.createOrSetFrameSig, false);
 						mv.visitVarInsn(ASTORE, identChain.getDec().getSlotNum());
 						identChain.getDec().setInitialized(true);
+
+						System.out.println("ACONST_NULL");
+						System.out.println("ALOAD " + identChain.getDec().getSlotNum());
+						System.out.println("INVOKESTATIC " + PLPRuntimeFrame.JVMClassName + " createOrSetFrame"
+								+ PLPRuntimeFrame.createOrSetFrameSig);
+						System.out.println("ASTORE "+identChain.getDec().getSlotNum());
 					}
 
 					// mv.visitInsn(POP);
@@ -896,13 +865,7 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 					/*
 					 * Debug
 					 */
-					/*
-					 * System.out.println("ALOAD " +
-					 * identChain.getDec().getSlotNum());
-					 * System.out.println("INVOKESTATIC " +
-					 * PLPRuntimeFrame.JVMClassName + " createOrSetFrame" +
-					 * PLPRuntimeFrame.createOrSetFrameSig);
-					 */
+					System.out.println("POP");
 
 					break;
 
@@ -920,11 +883,11 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 				/*
 				 * Debug
 				 */
-				/*
-				 * System.out.println("ALOAD 0"); System.out.println("GETFIELD "
-				 * + className + identChain.getDec().getIdent().getText() +
-				 * identChain.getDec().getTypeName().getJVMTypeDesc());
-				 */
+
+				System.out.println("ALOAD 0");
+				System.out.println("GETFIELD " + className + identChain.getDec().getIdent().getText()
+						+ identChain.getDec().getTypeName().getJVMTypeDesc());
+
 			} else {
 				if (identChain.getDec().getTypeName() == FRAME) {
 					if (identChain.getDec().getInitialized()) {
@@ -933,17 +896,15 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 						/*
 						 * Debug
 						 */
-						/*
-						 * System.out.println("ALOAD " +
-						 * identChain.getDec().getSlotNum());
-						 */
+
+						System.out.println("ALOAD " + identChain.getDec().getSlotNum());
 
 					} else {
 						mv.visitInsn(ACONST_NULL);
 						/*
 						 * Debug
 						 */
-						/* System.out.println("ACONST_NULL"); */
+						System.out.println("ACONST_NULL");
 					}
 
 				} else {
@@ -951,10 +912,9 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 					/*
 					 * Debug
 					 */
-					/*
-					 * System.out.println("ALOAD " +
-					 * identChain.getDec().getSlotNum());
-					 */
+
+					System.out.println("ALOAD " + identChain.getDec().getSlotNum());
+
 				}
 
 			}
@@ -1015,10 +975,11 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 						PLPRuntimeImageOps.copyImageSig, false);
 				mv.visitVarInsn(ASTORE, identX.getDec().getSlotNum());
 				identX.getDec().setInitialized(true);
-			} else if (identX.getDec().getTypeName() == TypeName.INTEGER || identX.getDec().getTypeName() == TypeName.BOOLEAN) {
+			} else if (identX.getDec().getTypeName() == TypeName.INTEGER
+					|| identX.getDec().getTypeName() == TypeName.BOOLEAN) {
 				mv.visitVarInsn(ISTORE, identX.getDec().getSlotNum());
 				identX.getDec().setInitialized(true);
-			}else {
+			} else {
 				mv.visitVarInsn(ASTORE, identX.getDec().getSlotNum());
 				identX.getDec().setInitialized(true);
 			}
@@ -1030,13 +991,22 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 	@Override
 	public Object visitIfStatement(IfStatement ifStatement, Object arg) throws Exception {
 		// TODO Implement this
+
+		System.out.println("if begin");
+
 		ifStatement.getE().visit(this, arg);
 		Label if_false = new Label();
 		mv.visitJumpInsn(IFEQ, if_false);
 		Label if_true = new Label();
 		mv.visitLabel(if_true);
+
+		System.out.println("if true");
+
 		ifStatement.getB().visit(this, arg);
 		mv.visitLabel(if_false);
+
+		System.out.println("if false");
+
 		return null;
 	}
 
@@ -1050,10 +1020,8 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			/*
 			 * Debug
 			 */
-			/*
-			 * System.out.println("INVOKEVIRTUAL " +
-			 * " java/awt/image/BufferedImage " + " getWidth " + "()I");
-			 */
+
+			System.out.println("INVOKEVIRTUAL " + " java/awt/image/BufferedImage " + " getWidth " + "()I");
 
 			break;
 
@@ -1063,10 +1031,8 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			/*
 			 * Debug
 			 */
-			/*
-			 * System.out.println("INVOKEVIRTUAL " +
-			 * " java/awt/image/BufferedImage " + " getHeight " + "()I");
-			 */
+
+			System.out.println("INVOKEVIRTUAL " + " java/awt/image/BufferedImage " + " getHeight " + "()I");
 
 			break;
 
@@ -1076,10 +1042,8 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			/*
 			 * Debug
 			 */
-			/*
-			 * System.out.println("INVOKESTATIC " + PLPRuntimeImageOps.JVMName +
-			 * " scale " + PLPRuntimeImageOps.scaleSig);
-			 */
+
+			System.out.println("INVOKESTATIC " + PLPRuntimeImageOps.JVMName + " scale " + PLPRuntimeImageOps.scaleSig);
 
 			break;
 
@@ -1143,13 +1107,13 @@ public class CodeGenVisitor implements ASTVisitor, Opcodes {
 			break;
 
 		case URL:
-			
+
 			mv.visitVarInsn(ALOAD, 0);
 			mv.visitVarInsn(ALOAD, 1);
 			indexLoader(paramDec.getSlotNum(), mv);
 			mv.visitMethodInsn(INVOKESTATIC, PLPRuntimeImageIO.className, "getURL", PLPRuntimeImageIO.getURLSig, false);
 			mv.visitFieldInsn(PUTFIELD, className, paramDec.getIdent().getText(), "Ljava/net/URL;");
-			
+
 			break;
 
 		case NONE:
