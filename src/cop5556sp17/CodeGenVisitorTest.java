@@ -3,6 +3,9 @@ package cop5556sp17;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -22,6 +25,21 @@ public class CodeGenVisitorTest {
 
 	boolean devel = false;
 	boolean grade = false;
+
+	@Before
+	public void initLog() {
+
+		if (devel || grade)
+			PLPRuntimeLog.initLog();
+
+	}
+
+	@After
+	public void printLog() {
+
+		System.out.println(PLPRuntimeLog.getString());
+
+	}
 
 	@Test
 	public void emptyProg() throws Exception {
@@ -51,14 +69,16 @@ public class CodeGenVisitorTest {
 				+ "if (image3 == image4) {\n" + "image i3scale\n" + "image3 -> scale(2) -> i3scale -> frame3 -> show;\n"
 				+ "sleep 500;\n" + "frame3 -> hide;\n" + "image itemp\n" + "url1 -> itemp;\n"
 				+ "itemp <- itemp + image3;\n" + "itemp -> outputFile1;\n" + "integer w\n" + "integer h\n"
-				+ "image4 -> width -> w;\n" + "image4 -> height -> h;\n" + "w <- w;\n" + "h <- h;\n" + "integer w2\n" + "integer h2\n" + "i3scale -> width -> w2;\n" + "i3scale -> height -> h2;\n" + "w2 <- w2;\n" + "h2 <- h2;\n" + "}\n" 
+				+ "image4 -> width -> w;\n" + "image4 -> height -> h;\n" + "w <- w;\n" + "h <- h;\n" + "integer w2\n"
+				+ "integer h2\n" + "i3scale -> width -> w2;\n" + "i3scale -> height -> h2;\n" + "w2 <- w2;\n"
+				+ "h2 <- h2;\n" + "}\n"
 
-				+ "file1 -> image1 -> gray -> frame1 -> show;\n"
-				+ "file2 -> image2 -> convolve -> frame2 -> show;\n" + "url1 -> image1;\n" + "image1 <- image1 % 150;\n"
-				+ "image1 -> frame5 -> show;\n" + "if (true) {\n" + "integer x\n" + "integer y\n" + "integer xi\n"
-				+ "integer yi\n" + "xi <- 100;\n" + "yi <- 50;\n" + "x <- xi;\n" + "y <- yi;\n" + "file1 -> image1;\n"
-				+ "file2 -> image2;\n" + "url1 -> image3;\n" + "url2 -> image4;\n" + "int3 <- 15;\n" + "image itemp\n"
-				+ "itemp <- image1;\n" + "while (int3 > 0) {\n" + "frame ftemp\n"
+				+ "file1 -> image1 -> gray -> frame1 -> show;\n" + "file2 -> image2 -> convolve -> frame2 -> show;\n"
+				+ "url1 -> image1;\n" + "image1 <- image1 % 150;\n" + "image1 -> frame5 -> show;\n" + "if (true) {\n"
+				+ "integer x\n" + "integer y\n" + "integer xi\n" + "integer yi\n" + "xi <- 100;\n" + "yi <- 50;\n"
+				+ "x <- xi;\n" + "y <- yi;\n" + "file1 -> image1;\n" + "file2 -> image2;\n" + "url1 -> image3;\n"
+				+ "url2 -> image4;\n" + "int3 <- 15;\n" + "image itemp\n" + "itemp <- image1;\n"
+				+ "while (int3 > 0) {\n" + "frame ftemp\n"
 
 				+ "if (int3 % 5 == 0) {\n" + "itemp <- itemp + image2;\n" + "}\n" + "if (int3 % 5 == 1) {\n"
 				+ "itemp <- itemp - image2;\n" + "}\n" + "if (int3 % 5 == 2) {\n" + "itemp <- itemp + image4;\n" + "}\n"

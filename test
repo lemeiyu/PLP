@@ -6,10 +6,6 @@ String progname = "NeoTest";
 				+ "image image5\n" + "frame frame1\n" + "frame frame2\n" + "frame frame3\n" + "frame frame4\n"
 				+ "frame frame5\n"
 
-				+ "/*\n" + "file1 -> image1 -> frame1 -> show;\n" + "sleep 500;\n"
-				+ "file2 -> image2 -> frame2 -> show;\n" + "sleep 500;\n" + "url1 -> image1 -> frame3 -> show;\n"
-				+ "sleep 500;\n" + "image1 -> blur -> frame4 -> show;\n" + "*/"
-
 				+ "int3 <- screenwidth;\n" + "int4 <- screenheight;\n"
 
 				+ "url1 -> image2;\n" + "url2 -> image3;\n" + "image1 <- image2 + image3;\n"
@@ -26,9 +22,9 @@ String progname = "NeoTest";
 				+ "if (image3 == image4) {\n" + "image i3scale\n" + "image3 -> scale(2) -> i3scale -> frame3 -> show;\n"
 				+ "sleep 500;\n" + "frame3 -> hide;\n" + "image itemp\n" + "url1 -> itemp;\n"
 				+ "itemp <- itemp + image3;\n" + "itemp -> outputFile1;\n" + "integer w\n" + "integer h\n"
-				+ "image4 -> width -> w;\n" + "image4 -> height -> h;\n" + "w <- w;\n" + "h <- h;\n" + "integer w2\n"
-				+ "integer h2\n" + "i3scale -> width -> w2;\n" + "i3scale -> height -> h2;\n" + "w2 <- w2;\n"
-				+ "h2 <- h2;\n" + "}\n" + "file1 -> image1 -> gray -> frame1 -> show;\n"
+				+ "image4 -> width -> w;\n" + "image4 -> height -> h;\n" + "w <- w;\n" + "h <- h;\n" + "integer w2\n" + "integer h2\n" + "i3scale -> width -> w2;\n" + "i3scale -> height -> h2;\n" + "w2 <- w2;\n" + "h2 <- h2;\n" + "}\n" 
+
+				+ "file1 -> image1 -> gray -> frame1 -> show;\n"
 				+ "file2 -> image2 -> convolve -> frame2 -> show;\n" + "url1 -> image1;\n" + "image1 <- image1 % 150;\n"
 				+ "image1 -> frame5 -> show;\n" + "if (true) {\n" + "integer x\n" + "integer y\n" + "integer xi\n"
 				+ "integer yi\n" + "xi <- 100;\n" + "yi <- 50;\n" + "x <- xi;\n" + "y <- yi;\n" + "file1 -> image1;\n"
