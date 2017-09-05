@@ -136,7 +136,8 @@ public class Parser {
 		default:
 			LinePos lPos = t.getLinePos();
 			throw new SyntaxException("identity, number, boolean or screensetting is expected, but is "
-					+ kind.toString() + ": " + t.getText() + ", at line: " + lPos.line + ", column: " + lPos.posInLine);
+					+ kind.toString() + ": " + t.getText() + ", at line: " + lPos.line + ", column: " 
+					+ lPos.posInLine);
 		}
 		
 		return fac;
@@ -232,7 +233,8 @@ public class Parser {
 			// TODO Auto-generated catch block
 			LinePos lPos = t.getLinePos();
 			throw new SyntaxException("A program needs an ientity as its name."
-					+ " Lack of a name of this program, at line: " + lPos.line + ", column: " + lPos.posInLine);
+					+ " Lack of a name of this program, at line: " + lPos.line 
+					+ ", column: " + lPos.posInLine);
 		}
 		switch (t.kind) {
 		case LBRACE:
@@ -255,8 +257,8 @@ public class Parser {
 
 		default:
 			LinePos lPos = t.getLinePos();
-			throw new SyntaxException("A \"{\" or a parameter list is required by the program block. " + "At line: "
-					+ lPos.line + ", column: " + lPos.posInLine);
+			throw new SyntaxException("A \"{\" or a parameter list is required by the program block. " 
+					+ "At line: " + lPos.line + ", column: " + lPos.posInLine);
 		}
 		
 		program = new Program(firstToken, params, block);
@@ -283,7 +285,8 @@ public class Parser {
 				// TODO Auto-generated catch block
 				LinePos lPos = t.getLinePos();
 				throw new SyntaxException("A parameter needs an identity as its name, "
-						+ "lack of a name of this parameter at line: " + lPos.line + ", column: " + lPos.posInLine);
+						+ "lack of a name of this parameter at line: " + lPos.line 
+						+ ", column: " + lPos.posInLine);
 			}
 
 			break;
@@ -318,15 +321,16 @@ public class Parser {
 				// TODO Auto-generated catch block
 				LinePos lPos = t.getLinePos();
 				throw new SyntaxException("A declaration needs an identity as its name, "
-						+ "lack of a name of the variable at line: " + lPos.line + ", column: " + lPos.posInLine);
+						+ "lack of a name of the variable at line: " + lPos.line 
+						+ ", column: " + lPos.posInLine);
 			}
 			break;
 
 		default:
 			LinePos lPos = t.getLinePos();
 			throw new SyntaxException("A keyword: interger, boolean, image or frame is expected for a declaration,"
-					+ " but is " + t.kind.toString() + ": " + t.getText() + ", at line: " + lPos.line + ", column: "
-					+ lPos.posInLine);
+					+ " but is " + t.kind.toString() + ": " + t.getText() + ", at line: " 
+					+ lPos.line + ", column: " + lPos.posInLine);
 			// break;
 		}
 		
@@ -400,9 +404,9 @@ public class Parser {
 			} catch (SyntaxException e) {
 				// TODO Auto-generated catch block
 				LinePos lPos = t.getLinePos();
-				throw new SyntaxException(
-						"There must be a SEMI at the end of sleep sentence. But there is " + t.kind.toString() + ": "
-								+ t.getText() + ", at line: " + lPos.line + ", column: " + lPos.posInLine);
+				throw new SyntaxException("There must be a SEMI at the end of sleep sentence. But there is " 
+						+ t.kind.toString() + ": " + t.getText() + ", at line: " + lPos.line 
+						+ ", column: " + lPos.posInLine);
 			}
 			statement = new SleepStatement(firstToken, sleepExpression);
 			break;
@@ -422,8 +426,8 @@ public class Parser {
 				statement = chain();
 			} else {
 				LinePos lPos = t.getLinePos();
-				throw new SyntaxException("A statement needs a keyword, " + "lack a keyword at line: " + lPos.line
-						+ ", column: " + lPos.posInLine);
+				throw new SyntaxException("A statement needs a keyword, " + "lack a keyword at line: " 
+						+ lPos.line + ", column: " + lPos.posInLine);
 			}
 			
 			try {
@@ -431,8 +435,8 @@ public class Parser {
 			} catch (SyntaxException e) {
 				// TODO Auto-generated catch block
 				LinePos lPos = t.getLinePos();
-				throw new SyntaxException("This sentence must end with a SEMI, " + "lack a \";\" at line: " + lPos.line
-						+ ", column: " + lPos.posInLine);
+				throw new SyntaxException("This sentence must end with a SEMI, " 
+						+ "lack a \";\" at line: " + lPos.line + ", column: " + lPos.posInLine);
 			}
 			
 			break;
@@ -456,16 +460,17 @@ public class Parser {
 			} catch (SyntaxException e) {
 				// TODO Auto-generated catch block
 				LinePos lPos = t.getLinePos();
-				throw new SyntaxException("This sentence must end with a SEMI, " + "lack a \";\" at line: " + lPos.line
-						+ ", column: " + lPos.posInLine);
+				throw new SyntaxException("This sentence must end with a SEMI, " + "lack a \";\" at line: " 
+						+ lPos.line + ", column: " + lPos.posInLine);
 			}
 			break;
 
 		default:
 			LinePos lPos = t.getLinePos();
 			throw new SyntaxException(
-					"A keyword \"while\", \"if\" or an identity is expected. but is " + t.kind.toString() + ": "
-							+ t.getText() + ", at line: " + lPos.line + ", column: " + lPos.posInLine);
+					"A keyword \"while\", \"if\" or an identity is expected. but is " 
+					+ t.kind.toString() + ": " + t.getText() + ", at line: " + lPos.line 
+					+ ", column: " + lPos.posInLine);
 		}
 		
 		return statement;
@@ -495,24 +500,6 @@ public class Parser {
 			chainElem = chainElem();
 			chain = new BinaryChain(firstToken, chain, arrowOp, chainElem);
 		}
-		/*} else {
-			//t is IDENT
-			chain = chainElem();
-			try {
-				arrowOp = match(ARROW, BARARROW);
-			} catch (SyntaxException e) {
-				// TODO Auto-generated catch block
-				LinePos lPos = t.getLinePos();
-				throw new SyntaxException("At least one arrow operator \"->\", \"|->\" is needed for a chain."
-						+ "Lack of a arrow operator at line: " + lPos.line + ", column: " + lPos.posInLine);
-			}
-			ChainElem chainElem = chainElem();
-			while (isArrowOp(t)) {
-				consume();
-				chainElem();
-			}
-
-		}*/
 		
 		return chain;
 		
@@ -549,8 +536,8 @@ public class Parser {
 			LinePos lPos = t.getLinePos();
 			throw new SyntaxException(
 					"A filter, frame or image operator or an identity is needed by a chain element. But is "
-							+ t.kind.toString() + ": " + t.getText() + ", at line: " + lPos.line + ", column: "
-							+ lPos.posInLine);
+							+ t.kind.toString() + ": " + t.getText() + ", at line: " + lPos.line 
+							+ ", column: " + lPos.posInLine);
 			// }
 
 		}
